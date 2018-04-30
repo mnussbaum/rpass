@@ -13,7 +13,7 @@ use clap::{App, Arg, ArgMatches, SubCommand};
 use failure::Error;
 use gpgme::PassphraseRequest;
 use rpass::PasswordStore;
-use rpass::server::run_server;
+use rpass::server::Server;
 
 fn main() {
     let matches = App::new("rpass")
@@ -78,7 +78,7 @@ fn execute_subcommand(matches: ArgMatches) -> Result<(), Error> {
 
         ("server", Some(_)) => {
             let password_store_dir = try!(password_store_directory());
-            run_server(PasswordStore::new(password_store_dir));
+            Server::new(PasswordStore::new(password_store_dir)).run();
             Ok(())
         }
 
