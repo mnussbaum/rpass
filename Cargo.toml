@@ -1,0 +1,10 @@
+[package]
+name = "rpass"
+version = "0.0.0"
+authors = ["mnussbaum <michaelnussbaum08@gmail.com>"]
+
+[dependencies]
+clap = "2.31"
+failure = "0.1"
+gpgme = "0.7"
+rpassword = "2.0"
