@@ -4,6 +4,11 @@ version = "0.0.0"
 authors = ["mnussbaum <michaelnussbaum08@gmail.com>"]
 
 [dependencies]
+actix-web = "0.5"
+actix = "0.5"
+serde = "1.0"
+serde_derive = "1.0"
+
 clap = "2.31"
 failure = "0.1"
 gpgme = "0.7"

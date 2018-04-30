@@ -1,3 +1,8 @@
+extern crate actix;
+extern crate actix_web;
+#[macro_use]
+extern crate serde_derive;
+
 extern crate clap;
 #[macro_use]
 extern crate failure;
@@ -7,6 +12,8 @@ use std::fs::File;
 use std::io::prelude::*;
 use failure::Error;
 use gpgme::{Context, PassphraseProvider, PinentryMode, Protocol};
+
+pub mod server;
 
 #[derive(Debug)]
 pub struct PasswordStore {

@@ -13,6 +13,7 @@ use clap::{App, Arg, ArgMatches, SubCommand};
 use failure::Error;
 use gpgme::PassphraseRequest;
 use rpass::PasswordStore;
+use rpass::server::run_server;
 
 fn main() {
     let matches = App::new("rpass")
@@ -34,6 +35,9 @@ fn main() {
                         .help("Name of password to create")
                         .required(true),
                 ),
+        )
+        .subcommand(
+            SubCommand::with_name("server").about("Run a server to back browser extensions"),
         )
         .get_matches();
 
@@ -59,6 +63,7 @@ fn execute_subcommand(matches: ArgMatches) -> Result<(), Error> {
                 }
             }
         }
+
         ("insert", Some(m)) => {
             let pass_name = m.value_of("pass-name").unwrap();
             let pass =
@@ -70,6 +75,13 @@ fn execute_subcommand(matches: ArgMatches) -> Result<(), Error> {
                 Ok(_) => Ok(()),
             }
         }
+
+        ("server", Some(_)) => {
+            let password_store_dir = try!(password_store_directory());
+            run_server(PasswordStore::new(password_store_dir));
+            Ok(())
+        }
+
         _ => Err(format_err!("Unknown subcommand")),
     }
 }
